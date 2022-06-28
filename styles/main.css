@@ -33,3 +33,15 @@
     height: 80vh;
     background-color: purple;
 }
+
+#player {
+    width:100px;
+    height:100px;
+    background-color: aqua;
+}
+
+#enemy-pokemon {
+    width:100px;
+    height:100px;
+    background-color: pink;
+}

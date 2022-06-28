@@ -1,7 +1,48 @@
 class Game {
   constructor() {
-    this.player = null;
-    this.enemies = [];
+    //HARD CODING AS EXAMPLE
+    this.player = {
+      name: "charmander",
+      type: "fire",
+      level: 15,
+      health: 120,
+      attacks: [
+        {
+          attack: "tackle",
+          typeOfAttack: "normal",
+          damage: 10,
+        },
+        {
+          attack: "ember",
+          typeOfAttack: "fire",
+          damage: 30,
+        },
+        {
+          attack: "scratch",
+          typeOfAttack: "normal",
+          damage: 10,
+        },
+      ],
+    };
+
+    this.enemies = {
+      name: "charizard",
+      type: "fire",
+      level: 15,
+      health: 120,
+      attacks: [
+        {
+          attack: "tackle",
+          typeOfAttack: "normal",
+          damage: 10,
+        },
+        {
+          attack: "flamethrower",
+          typeOfAttack: "fire",
+          damage: 10,
+        },
+      ],
+    };
   }
 
   start() {
@@ -20,7 +61,7 @@ class Game {
 
 class Player {
   constructor() {
-    this.selectedPokemon = null;
+    this.selectedPokemon = "charmander";
     // this.domElement = this.selectionEvent();
   }
 
@@ -136,7 +177,7 @@ class Player {
 
       this.selectedPokemon = chooseOne;
 
-      console.log(this.selectedPokemon);
+      //   console.log(this.selectedPokemon);
 
       this.configureFightScreen();
     });
@@ -153,15 +194,82 @@ class Player {
     fightScreen.setAttribute("id", "pokemon-fight");
     boardDiv.append(fightScreen);
 
+    const newFight = new Fight();
+    newFight.createGameDiv();
+    newFight.attack();
+
+    // console.log(newFight.showChosenCharacter());
+    // console.log(newFight.showChosenCharacter());
     // const pokemonFight = document.createElement('div');
     // pokemonFight.setAttribute("class", "pokemon-fight");
   }
 }
 
-class Fight extends Player {
+class Fight extends Game {
   constructor() {
     super();
   }
+
+  createGameDiv() {
+    const gameDiv = document.querySelector("#pokemon-fight");
+    const player = document.createElement("div");
+    const opponent = document.createElement("div");
+    player.setAttribute("id", "player");
+    opponent.setAttribute("id", "enemy-pokemon");
+    gameDiv.append(player, opponent);
+
+    this.displayEnemyAttacks();
+    this.displayPlayerAttacks();
+  }
+
+  displayEnemyAttacks() {
+    let newArr = this.enemies.attacks;
+    let enemyAttacks = [];
+    console.log(newArr);
+    newArr.forEach((element) => {
+      enemyAttacks.push(element.attack);
+    });
+
+    const enemyDiv = document.querySelector("#enemy-pokemon");
+    const attacksDisplay = document.createElement("div");
+    attacksDisplay.setAttribute("class", "enemy-attacks");
+    enemyDiv.append(attacksDisplay);
+
+    //DISPLAY ENEMY ATTACKS
+    for (let index = 0; index < enemyAttacks.length; index++) {
+      const attackDisplayDiv = document.createElement("div");
+      attackDisplayDiv.setAttribute("class", "enemy-attack");
+      let enemyAttackName = enemyAttacks[index];
+      attackDisplayDiv.innerHTML = enemyAttackName;
+      attacksDisplay.append(attackDisplayDiv);
+    }
+  }
+
+  displayPlayerAttacks() {
+    let newArray = this.player.attacks;
+    let playerAttacks = [];
+    // console.log(newArr);
+    newArray.forEach((element) => {
+      playerAttacks.push(element.attack);
+    });
+
+    const playerDiv = document.querySelector("#player");
+    const attacksDisplay = document.createElement("div");
+    attacksDisplay.setAttribute("class", "player-attacks");
+    playerDiv.append(attacksDisplay);
+
+    for (let index = 0; index < playerAttacks.length; index++) {
+      const attackDisplayDiv = document.createElement("div");
+      attackDisplayDiv.setAttribute("class", "player-attack");
+      let playerAttackName = playerAttacks[index];
+      attackDisplayDiv.innerHTML = playerAttackName;
+      attacksDisplay.append(attackDisplayDiv);
+    }
+  }
+
+  pickAttack() {}
+
+  attack() {}
 }
 
 const game = new Game();
