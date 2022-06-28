@@ -1,0 +1,35 @@
+.board {
+    width: 100vw;
+    height: 100vh;
+    background-color: grey;
+}
+
+
+#charmander {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+#squirtle {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+#bulbasaur {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+
+.pokemon-fight {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+}
+
+#pokemon-fight {
+    width: 80vw;
+    height: 80vh;
+    background-color: purple;
+}
