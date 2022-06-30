@@ -3,44 +3,24 @@ class Game {
     //HARD CODING AS EXAMPLE
     this.selectedPokemon = null;
 
-    this.enemies = [
-      {
-        name: "charizard",
-        type: "fire",
-        level: 15,
-        health: 120,
-        attacks: [
-          {
-            attack: "tackle",
-            typeOfAttack: "normal",
-            // damage:,
-          },
-          {
-            attack: "flamethrower",
-            typeOfAttack: "fire",
-            // damage: 10,
-          },
-        ],
-      },
-      {
-        name: "blastoise",
-        type: "water",
-        level: 15,
-        health: 120,
-        attacks: [
-          {
-            attack: "tackle",
-            typeOfAttack: "normal",
-            // damage:,
-          },
-          {
-            attack: "hydro pump",
-            typeOfAttack: "water",
-            // damage: 10,
-          },
-        ],
-      },
-    ];
+    this.enemies = {
+      name: "charizard",
+      type: "fire",
+      level: 15,
+      health: 120,
+      attacks: [
+        {
+          attack: "tackle",
+          typeOfAttack: "normal",
+          // damage:,
+        },
+        {
+          attack: "flamethrower",
+          typeOfAttack: "fire",
+          // damage: 10,
+        },
+      ],
+    };
   }
   start() {
     this.domElement();
@@ -149,6 +129,7 @@ class Game {
       } else if (event.target.id === "bulbasaur") {
         this.selectedPokemon = this.chooseCharacterBulbasaur();
       }
+      // console.log(this.selectedPokemon);
       this.configureFightScreen();
     });
   }
@@ -164,35 +145,38 @@ class Game {
     fightScreen.setAttribute("id", "pokemon-fight");
     boardDiv.append(fightScreen);
 
-    const newFight = new Fight(this.selectedPokemon, this.enemies[0]);
+    const newFight = new Fight();
+    newFight.selectedPokemon = this.selectedPokemon;
+    console.log(this.enemies);
+    // console.log(newFight.selectedPokemon);
+    // console.log(newFight.selectedPokemon);
+    // console.log(newFight.enemies);
     newFight.createGameDiv();
     newFight.pickAttack();
   }
 }
 
 class Fight extends Game {
-  constructor(chosenPokemon, selectedEnemy) {
+  constructor() {
     super();
-    this.chosenPokemon = chosenPokemon;
-    this.selectedEnemy = selectedEnemy;
     this.playerChosenAttack = null;
     this.enemyChosenAttack = null;
   }
 
   createGameDiv() {
+    console.log(this.selectedPokemon);
     const gameDiv = document.querySelector("#pokemon-fight");
     const player = document.createElement("div");
     const opponent = document.createElement("div");
     player.setAttribute("id", "player");
     opponent.setAttribute("id", "enemy-pokemon");
-    opponent.innerHTML = this.selectedEnemy.name;
+    opponent.innerHTML = this.enemies.name;
     gameDiv.append(player, opponent);
-
     this.displayPlayerAttacks();
   }
 
   displayPlayerAttacks() {
-    let newArray = this.chosenPokemon.attacks;
+    let newArray = this.selectedPokemon.attacks;
     let playerAttacks = [];
 
     newArray.forEach((element) => {
@@ -215,7 +199,7 @@ class Fight extends Game {
   }
 
   updateAndDisplayPlayerHealth() {
-    let playerHealth = this.chosenPokemon.health;
+    let playerHealth = this.selectedPokemon.health;
     const playerDiv = document.querySelector("#pokemon-fight");
     const playerHealthDiv = document.createElement("progress");
     playerHealthDiv.setAttribute("id", "player-health");
@@ -227,7 +211,7 @@ class Fight extends Game {
   }
 
   updateAndDisplayEnemyHealth() {
-    let enemyHealth = this.selectedEnemy.health;
+    let enemyHealth = this.enemies.health;
     const enemyDiv = document.querySelector("#pokemon-fight");
     const enemyHealthDiv = document.createElement("progress");
     enemyHealthDiv.setAttribute("id", "enemy-health");
@@ -245,24 +229,23 @@ class Fight extends Game {
 
     selectAttack.addEventListener("click", (event) => {
       if (event.target.id === "player-attack-1") {
-        this.playerChosenAttack = this.chosenPokemon.attacks[0];
+        this.playerChosenAttack = this.selectedPokemon.attacks[0];
       } else if (event.target.id === "player-attack-2") {
-        this.playerChosenAttack = this.chosenPokemon.attacks[1];
+        this.playerChosenAttack = this.selectedPokemon.attacks[1];
       } else if (event.target.id === "player-attack-3") {
-        this.playerChosenAttack = this.chosenPokemon.attacks[2];
+        this.playerChosenAttack = this.selectedPokemon.attacks[2];
       }
 
-      if (this.selectedEnemy.health >= 0 && this.chosenPokemon.health > 0) {
+      if (this.enemies.health >= 0 && this.selectedPokemon.health > 0) {
         this.attack();
-        enemyHealth.setAttribute("value", this.selectedEnemy.health);
-        // console.log("enemy health is now " + this.selectedEnemy.health);
+        enemyHealth.setAttribute("value", this.enemies.health);
+        // console.log("enemy health is now " + this.enemies.health);
+
+        setTimeout;
         this.defend();
-        playerHealth.setAttribute("value", this.chosenPokemon.health);
-        // console.log("player health is now " + this.chosenPokemon.health);
-      } else if (
-        this.selectedEnemy.health < 0 &&
-        this.chosenPokemon.health > 0
-      ) {
+        playerHealth.setAttribute("value", this.selectedPokemon.health);
+        // console.log("player health is now " + this.selectedPokemon.health);
+      } else if (this.enemies.health < 0 && this.selectedPokemon.health > 0) {
         console.log("you win");
       } else {
         console.log("you lose");
@@ -274,28 +257,28 @@ class Fight extends Game {
     if (this.checkTypeOfAttack() === "fire") {
       const damage = this.checkDamageForFireAttack(this.checkEnemyType());
       console.log("damage is " + damage);
-      const enemyHealth = this.selectedEnemy.health;
+      const enemyHealth = this.enemies.health;
       const damageEnemy = enemyHealth - damage;
-      this.selectedEnemy.health = damageEnemy;
+      this.enemies.health = damageEnemy;
     } else if (this.checkTypeOfAttack() === "normal") {
       const damage = this.checkDamageForNormalAttack();
-      const enemyHealth = this.selectedEnemy.health;
+      const enemyHealth = this.enemies.health;
       const damageEnemy = enemyHealth - damage;
-      this.selectedEnemy.health = damageEnemy;
+      this.enemies.health = damageEnemy;
     } else if (this.checkTypeOfAttack() === "water") {
       const damage = this.checkDamageForWaterAttack(this.checkEnemyType());
 
-      const enemyHealth = this.selectedEnemy.health;
+      const enemyHealth = this.enemies.health;
       const damageEnemy = enemyHealth - damage;
-      this.selectedEnemy.health = damageEnemy;
-      return this.selectedEnemy.health;
+      this.enemies.health = damageEnemy;
+      return this.enemies.health;
     } else if (this.checkTypeOfAttack() === "grass") {
       const damage = this.checkDamageForGrassAttack(this.checkEnemyType());
 
-      const enemyHealth = this.selectedEnemy.health;
+      const enemyHealth = this.enemies.health;
       const damageEnemy = enemyHealth - damage;
-      this.selectedEnemy.health = damageEnemy;
-      return this.selectedEnemy.health;
+      this.enemies.health = damageEnemy;
+      return this.enemies.health;
     }
   }
 
@@ -303,34 +286,34 @@ class Fight extends Game {
     if (this.checkEnemyAttack() === "fire") {
       const damage = this.checkDamageForFireAttack(this.checkPlayerType());
       console.log("enemy attack damage is " + damage);
-      const playerHealth = this.chosenPokemon.health;
+      const playerHealth = this.selectedPokemon.health;
       const damagePlayer = playerHealth - damage;
-      this.chosenPokemon.health = damagePlayer;
+      this.selectedPokemon.health = damagePlayer;
     } else if (this.checkEnemyAttack() === "normal") {
       const damage = this.checkDamageForNormalAttack();
       console.log("enemy attack damage is " + damage);
-      const playerHealth = this.chosenPokemon.health;
+      const playerHealth = this.selectedPokemon.health;
       const damagePlayer = playerHealth - damage;
-      this.chosenPokemon.health = damagePlayer;
+      this.selectedPokemon.health = damagePlayer;
     } else if (this.checkEnemyAttack() === "water") {
       const damage = this.checkDamageForWaterAttack(this.checkPlayerType());
 
-      const playerHealth = this.chosenPokemon.health;
+      const playerHealth = this.selectedPokemon.health;
       const damagePlayer = playerHealth - damage;
-      this.chosenPokemon.health = damagePlayer;
-      return this.chosenPokemon.health;
+      this.selectedPokemon.health = damagePlayer;
+      return this.selectedPokemon.health;
     } else if (this.checkEnemyAttack() === "grass") {
       const damage = this.checkDamageForGrassAttack(this.checkPlayerType());
 
-      const playerHealth = this.chosenPokemon.health;
+      const playerHealth = this.selectedPokemon.health;
       const damagePlayer = playerHealth - damage;
-      this.chosenPokemon.health = damagePlayer;
-      return this.chosenPokemon.health;
+      this.selectedPokemon.health = damagePlayer;
+      return this.selectedPokemon.health;
     }
   }
 
   checkPlayerType() {
-    const playerType = this.chosenPokemon.type;
+    const playerType = this.selectedPokemon.type;
     return playerType;
   }
   checkTypeOfAttack() {
@@ -339,12 +322,12 @@ class Fight extends Game {
   }
 
   checkEnemyType() {
-    const enemyType = this.selectedEnemy.type;
+    const enemyType = this.enemies.type;
     return enemyType;
   }
 
   pickEnemyAttack() {
-    const enemyAttackArray = this.selectedEnemy.attacks;
+    const enemyAttackArray = this.enemies.attacks;
     console.log(enemyAttackArray);
     const enemyChosenAttack =
       enemyAttackArray[Math.floor(Math.random() * enemyAttackArray.length)];
@@ -407,7 +390,7 @@ class Fight extends Game {
   }
 
   nextFight() {
-    if (this.selectedEnemy.health === 0) {
+    if (this.enemies.health === 0) {
       console.log("ready for next fight");
       return true;
     }
