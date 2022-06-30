@@ -25,7 +25,7 @@ class Game {
   start() {
     this.domElement();
     this.selectPokemonEvent();
-    console.log(this.enemies[0]);
+    // console.log(this.enemies[0]);
   }
 
   chooseCharacterCharmander() {
@@ -130,12 +130,14 @@ class Game {
         this.selectedPokemon = this.chooseCharacterBulbasaur();
       }
       // console.log(this.selectedPokemon);
-      this.configureFightScreen();
+      this.createFight();
     });
   }
 
-  configureFightScreen() {
-    // console.log(this.selectedPokemon);
+  createFight() {
+    const newFight = new Fight();
+    newFight.selectedPokemon = this.selectedPokemon;
+    console.log(this.selectedPokemon);
     const initialPokemon = document.querySelector(".starter-pokemons");
     initialPokemon.remove();
 
@@ -145,14 +147,18 @@ class Game {
     fightScreen.setAttribute("id", "pokemon-fight");
     boardDiv.append(fightScreen);
 
-    const newFight = new Fight();
-    newFight.selectedPokemon = this.selectedPokemon;
-    console.log(this.enemies);
-    // console.log(newFight.selectedPokemon);
-    // console.log(newFight.selectedPokemon);
-    // console.log(newFight.enemies);
     newFight.createGameDiv();
-    newFight.pickAttack();
+    newFight.attackPick();
+    // newFight.giveAndTakeDamage();
+    // console.log(newFight.playerChosenAttack);
+    // console.log(newFight.giveAndTakeDamage());
+  }
+
+  gameOver() {
+    if (this.selectedPokemon.health < 0 || this.enemies.health < 0) {
+      alert("game over");
+      window.location.reload;
+    }
   }
 }
 
@@ -221,6 +227,56 @@ class Fight extends Game {
     return enemyHealthDiv;
   }
 
+  attackPick() {
+    const playerHealth = this.updateAndDisplayPlayerHealth();
+    const enemyHealth = this.updateAndDisplayEnemyHealth();
+    const selectAttack = document.querySelector(".player-attacks");
+    selectAttack.addEventListener("click", (event) => {
+      if (event.target.id === "player-attack-1") {
+        this.playerChosenAttack = this.selectedPokemon.attacks[0];
+        this.attack();
+        enemyHealth.setAttribute("value", this.enemies.health);
+        setTimeout(() => this.defend(), 2000);
+        setTimeout(
+          () => playerHealth.setAttribute("value", this.selectedPokemon.health),
+          2000
+        );
+      } else if (event.target.id === "player-attack-2") {
+        this.playerChosenAttack = this.selectedPokemon.attacks[1];
+        this.attack();
+        enemyHealth.setAttribute("value", this.enemies.health);
+        setTimeout(() => this.defend(), 2000);
+        setTimeout(
+          () => playerHealth.setAttribute("value", this.selectedPokemon.health),
+          2000
+        );
+      } else if (event.target.id === "player-attack-3") {
+        this.playerChosenAttack = this.selectedPokemon.attacks[2];
+        this.attack();
+        enemyHealth.setAttribute("value", this.enemies.health);
+        setTimeout(() => this.defend(), 2000);
+        setTimeout(
+          () => playerHealth.setAttribute("value", this.selectedPokemon.health),
+          2000
+        );
+        // this.defend();
+        // playerHealth.setAttribute("value", this.selectedPokemon.health);
+        // return this.playerChosenAttack;
+      }
+    });
+    // console.log(this.playerChosenAttack);
+  }
+
+  giveAndTakeDamage() {
+    console.log(this.playerChosenAttack);
+    const playerHealth = this.updateAndDisplayPlayerHealth();
+    const enemyHealth = this.updateAndDisplayEnemyHealth();
+    if (this.playerChosenAttack) {
+      // console.log(this.playerChosenAttack);
+      this.attack();
+      this.defend();
+    }
+  }
   pickAttack() {
     const playerHealth = this.updateAndDisplayPlayerHealth();
     const enemyHealth = this.updateAndDisplayEnemyHealth();
@@ -246,9 +302,11 @@ class Fight extends Game {
         playerHealth.setAttribute("value", this.selectedPokemon.health);
         // console.log("player health is now " + this.selectedPokemon.health);
       } else if (this.enemies.health < 0 && this.selectedPokemon.health > 0) {
-        console.log("you win");
+        alert("you won!");
+        window.location.reload();
       } else {
-        console.log("you lose");
+        alert("you lost, try again next time!");
+        window.location.reload();
       }
     });
   }
@@ -256,7 +314,7 @@ class Fight extends Game {
   attack() {
     if (this.checkTypeOfAttack() === "fire") {
       const damage = this.checkDamageForFireAttack(this.checkEnemyType());
-      console.log("damage is " + damage);
+      console.log("damage given to enemy is " + damage);
       const enemyHealth = this.enemies.health;
       const damageEnemy = enemyHealth - damage;
       this.enemies.health = damageEnemy;
@@ -285,13 +343,13 @@ class Fight extends Game {
   defend() {
     if (this.checkEnemyAttack() === "fire") {
       const damage = this.checkDamageForFireAttack(this.checkPlayerType());
-      console.log("enemy attack damage is " + damage);
+      console.log("damage i take is " + damage);
       const playerHealth = this.selectedPokemon.health;
       const damagePlayer = playerHealth - damage;
       this.selectedPokemon.health = damagePlayer;
     } else if (this.checkEnemyAttack() === "normal") {
       const damage = this.checkDamageForNormalAttack();
-      console.log("enemy attack damage is " + damage);
+      console.log("damage i take is " + damage);
       const playerHealth = this.selectedPokemon.health;
       const damagePlayer = playerHealth - damage;
       this.selectedPokemon.health = damagePlayer;
