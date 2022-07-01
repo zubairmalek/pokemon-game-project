@@ -1,62 +1,442 @@
+@import url(//db.onlinewebfonts.com/c/831e1f4da157d96bc996f8c9f5f1e578?family=Pokemon+GB);
+@font-face {font-family: "Pokemon GB"; src: url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.eot"); src: url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.woff") format("woff"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.svg#Pokemon GB") format("svg"); }
+
+body {
+    cursor: pointer;
+}
+
+.main-title {
+    font-family: "Pokemon GB";
+    text-align: center;
+}
+
+.main-title img {
+    width: 500px;
+    height: 120px;
+}
+
+.main-title span {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.main-title h4 {
+    font-size: 12px;
+    margin: 20px;
+}
 .board {
+    position: relative;
     width: 100vw;
-    height: 100vh;
-    background-color: grey;
-    /* background-image: url("./images/gameboy.png");
-    background-repeat: no-repeat; */
+    height: 75vh;
+    /* background-color: grey; */
+    background-image: url("./images/gameboy.png");
+    background-repeat: no-repeat; 
     background-size: auto;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pokemon-screen {
+    position: relative;
+    top: -32px;
+    left: 1px;
+    width: 480px;
+    height: 323px;
+    background-color: lightgray;
+    
+}
+.pokemon-screen {
+    font-family: "Pokemon GB";
+    /* text-align: center; */
+}
+.pokemon-screen h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 35px;
+}
+.pokemon-screen h4 {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 20px;
+}
+.pick-pokemon {
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+.pokemon-choices {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 12px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 40px;
+}
+.pokemon-choices img {
+    margin-top: 10px;
+}
+/* transitions */
+.pokemon-charmander {
+    transition: all 0.4s ease;
+}
+.pokemon-charmander:hover{
+    transform: scale(1.1);
+}
+.pokemon-squirtle {
+    transition: all 0.4s ease;
+}
+.pokemon-squirtle:hover{
+    transform: scale(1.1);
+}
+.pokemon-bulbasaur {
+    transition: all 0.4s ease;
+}
+.pokemon-bulbasaur:hover{
+    transform: scale(1.1);
 }
 
+#loading-screen {
+    display: none ;
+    width: 100%;
+    height: 100%;
+}
+#pokemon-loading-gif {
+    display: none ;
+    width: 100%;
+    height: 100%;
+}
+/* POKEMON FIGHT SCREEN CSS */
 
-#charmander {
+.fight-screen {
+    position: relative;
+    top: 3px;
+    width: 100%;
+    height: 100%;
+    background-image: url(./images/pokemon-fight.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+
+.enemy-pokemon {
+    width: 162px;
+    position: relative;
+    background-color: #f0f0d0;
+    top: -125px;
+    height: 25px;
+    left: 38px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.enemy-pokemon h1 {
+    font-size:10px;
+}
+.enemy-pokemon h3 {
+    font-size:10px;
+}
+
+.enemy-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 7px;
+    left: 0;
+}
+
+.health-bar {
+    position: relative;
+    top: 11px;
+    left: 65px;
+}
+
+.health-bar progress {
     width: 100px;
-    height: 100px;
+    height: 20px;
+}
+
+.enemy-health-display {
+    
+    position: relative;
+    top: -5px;
+    left: -16px;
+    width: 50px;
+    height: 8px;
+    font-size: 6px;
+    text-align: center;
+    padding: 4px;
+    
+}
+
+.player-pokemon {
+    width: 162px;
+    position: relative;
+    background-color: #f0f0d0;
+    height: 25px;
+    left: 280px;
+    display: flex;
+    flex-direction: column;
+    top: -37px;
+}
+
+.player-pokemon h1 {
+    font-size:10px;
+}
+.player-pokemon h3 {
+    font-size:10px;
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 7px;
+    left: 0;
+}
+.health-display {
+    position: relative;
+    background-color: #f0f0d0;
+    top: 10px;
+    left: 47px;
+    width: 107px;
+    height: 7px;
+    font-size: 12px;
+    text-align: center;
+    padding: 4px;
+}
+/* BOTTOM MENU */
+.menu {
+    width: 92%;
+    height: 65px;
+    position: relative;
+    top: 23px;
+    left: 19px;
+    display: flex;
+    /* background-color: yellow; */
+}
+
+.left-menu {
+    border: 1px solid yellow;
+    border: 1px solid yellow;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #f0f0d0;
+    border: 2px solid black;
+    flex:50%;
+    font-size: 10px;
+    margin-right: 1px;
+    line-height: 15px;
+}
+
+.right-menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex:50%;
+    /* border: 1px solid black; */
+}
+
+.btn {
+    flex:40%;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+    /* font-weight: 500; */
+    /* border: 1px solid yellow; */
+}
+.btn-fight {
+    border: 2px solid black;
     background-color: red;
+    border-radius: 2px;
 }
-
-#squirtle {
-    width: 100px;
-    height: 100px;
+.btn-bag {
+    border: 2px solid black;
     background-color: blue;
+    border-radius: 2px;
 }
-#bulbasaur {
-    width: 100px;
-    height: 100px;
+
+.btn-pokemon {
+    border: 2px solid black;
     background-color: green;
+    border-radius: 2px;
 }
 
-.pokemon-fight {
-    width: 100px;
-    height: 100px;
-    background-color: yellow;
+.btn-run {
+    border: 2px solid black;
+    background-color: cyan;
+    border-radius: 2px;
 }
 
-#pokemon-fight {
-    width: 80vw;
-    height: 80vh;
-    /* background-color: purple; */
+.selected-enemy-img {
+    position: relative;
+    top: 50px;
+    left: 332px;
 }
 
-#player {
-    width:100px;
-    height:100px;
-    background-color: aqua;
+.selected-enemy-img img {
+    width:54px;
+    height:78px;
 }
 
-#enemy-pokemon {
-    width:100px;
-    height:100px;
-    background-color: pink;
+.selected-player-pokemon-img {
+    position: relative;
+    top: 63px;
+    left: 84px;
 }
 
-#enemy-health {
-    width:100px;
-    height:20px;
-    /* background-color: brown; */
+.selected-player-pokemon-img img {
+    width: 86px;
+    height: 77px;
 }
 
-#player-health {
-    width:100px;
-    height:20px;
-   
+/* ATTACKS OPTION STYLING */
+
+.attack-menu {
+    width: 92%;
+    height: 65px;
+    position: relative;
+    top: 23px;
+    left: 19px;
+    display: none;
+    /* CHANGE TO DISPLAY FLEX */
+    /* background-color: yellow; */
+}
+
+.select-attack {
+    border: 1px solid yellow;
+    background-color: #f0f0d0;
+    border-radius: 5px;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid black;
+    flex: 70%;
+    font-size: 10px;
+    margin-right: 9px;
+    line-height: 15px;
+    flex-wrap: wrap;
+}
+
+.type-of-attack {
+    display: flex;
+    flex: 20%;
+    align-items: center;
+    line-height: 29px;
+    padding: 6px;
+    background-color: #f5f5f5;
+    font-size: 12px;
+    border: 1px solid yellow;
+    border-radius: 5px;
+}
+
+.attack1 {
+    flex: 50%;
+    margin: 0px;
+    margin-bottom: 7px;
+}
+
+.attack2 {
+    flex: 50%;
+    margin-bottom: 7px;
+}
+
+.attack3 {
+    flex:50%;
+}
+
+.attack3 {
+    flex:50%;
+}
+
+.go-back {
+    flex:50%;
+}
+
+/* Game Won */
+
+.game-won {
+    font-family: "Pokemon GB";
+    text-align: center;
+    font-size: 30px;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-won h1 {
+    font-size: 26px;
+    margin-top: 21px;
+}
+
+.game-won h3 {
+    font-size: 10px;
+    margin-top: 30px;
+}
+
+.game-won a {
+    font-size: 15px;
+    margin-top: 28px;
+    text-decoration: none;
+}
+
+.game-lost {
+    font-family: "Pokemon GB";
+    text-align: center;
+    font-size: 30px;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-lost h1 {
+    font-size: 26px;
+    margin-top: 21px;
+}
+
+.game-lost h3 {
+    font-size: 10px;
+    margin-top: 30px;
+}
+
+.game-lost a {
+    font-size: 15px;
+    margin-top: 28px;
+    text-decoration: none;
+}
+
+.arrow-down {
+    font-size: 45px;
+    margin-top: 20px;
+}
+
+.attack-commentary {
+    width: 92%;
+    height: 65px;
+    position: relative;
+    top: 23px;
+    left: 19px;
+    background-color: white;
+    display: none;
+    border-radius: 5px;
+
+}
+
+.attack-commentary p {
+    text-align: center; 
+    font-size: 12px; 
+    justify-content: center;
+    background: border-box;
+    align-items: center;
+    padding: 13px;
+    line-height: 18px;
 }

@@ -4,13 +4,135 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-
+    <title>Pokemon Design</title>
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link
+      href="//db.onlinewebfonts.com/c/831e1f4da157d96bc996f8c9f5f1e578?family=Pokemon+GB"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/main.css" />
   </head>
   <body>
-    <div class="board"></div>
+    <div class="main-title">
+      <img src="./styles/images/pokemon-logo.png" alt="" />
+      <h4>
+        <span>CLICK</span> on the gameboy screen to start your journey at
+        becoming a Pokemon Master
+      </h4>
+    </div>
+    <div class="board">
+      <div class="pokemon-screen">
+        <!-- DISPLAY FIGHT SCREEN -->
+        <div class="fight-screen">
+          <div class="selected-enemy-img">
+            <img src="./styles/images/rattata.gif" alt="" />
+          </div>
+          <div class="selected-player-pokemon-img">
+            <img
+              src="./styles/images/squirtle.gif"
+              alt=""
+              id="player-pokemon-img"
+            />
+          </div>
+          <div class="enemy-pokemon">
+            <div class="enemy-info">
+              <h1></h1>
+              <h3></h3>
+            </div>
 
+            <div class="health-bar" id="enemy-health-bar">
+              <progress id="file" max="120" value="120"></progress>
+            </div>
+            <div class="enemy-health-display"><p>120/120</p></div>
+          </div>
+
+          <div class="player-pokemon">
+            <div class="player-info">
+              <h1></h1>
+              <h3></h3>
+            </div>
+
+            <div class="health-bar" id="player-health-bar">
+              <progress max="120" value="120"></progress>
+            </div>
+            <div class="health-display"><p>120/120</p></div>
+          </div>
+
+          <div class="attack-commentary">
+            <p>Squirtle use Tackle and makes damage of 30 hp!</p>
+          </div>
+
+          <div class="menu">
+            <div class="left-menu">
+              <p></p>
+            </div>
+            <div class="right-menu">
+              <div class="btn btn-fight fight-button">
+                <p class="fight-button">FIGHT</p>
+              </div>
+              <div class="btn btn-bag"><p>BAG</p></div>
+              <div class="btn btn-pokemon"><p>POKEMON</p></div>
+              <div class="btn btn-run run"><p class="run">RUN</p></div>
+            </div>
+          </div>
+
+          <div class="attack-menu">
+            <div class="select-attack">
+              <div class="attack1 attack-one"><p class="attack-one"></p></div>
+              <div class="attack2 attack-two"><p class="attack-two"></p></div>
+              <div class="attack3 attack-three">
+                <p class="attack-three"></p>
+              </div>
+              <div class="go-back back"><p class="back">Back</p></div>
+            </div>
+            <div class="type-of-attack">
+              <p>
+                Type:
+                <br />
+                Normal
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DISPLAY LOADING AND PICK POKEMON SCREEN -->
+        <img src="./styles/images/nintendo.gif" alt="" id="loading-screen" />
+        <img
+          src="./styles/images/pokemon-loading-gif.gif"
+          alt=""
+          id="pokemon-loading-gif"
+        />
+        <div class="pick-pokemon">
+          <h2>Choose your Pokemon</h2>
+          <h4>Click the Pokemon of your choice</h4>
+          <div class="pokemon-choices">
+            <div class="pokemon-charmander charmander">
+              <h3 class="charmander">Charmander</h3>
+              <img
+                src="./styles/images/pokeball.gif"
+                alt=""
+                class="charmander"
+              />
+            </div>
+            <div class="pokemon-squirtle squirtle">
+              <h3 class="squirtle">Squirtle</h3>
+              <img src="./styles/images/pokeball.gif" alt="" class="squirtle" />
+            </div>
+            <div class="pokemon-bulbasaur bulbasaur">
+              <h3 class="bulbasaur">Bulbasaur</h3>
+              <img
+                src="./styles/images/pokeball.gif"
+                alt=""
+                class="bulbasaur"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- POKEMON FIGHT SCREEN -->
+      </div>
+    </div>
     <script src="./js/main.js"></script>
   </body>
 </html>
