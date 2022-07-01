@@ -1,13 +1,25 @@
 @import url(//db.onlinewebfonts.com/c/831e1f4da157d96bc996f8c9f5f1e578?family=Pokemon+GB);
 @font-face {font-family: "Pokemon GB"; src: url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.eot"); src: url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.woff") format("woff"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/831e1f4da157d96bc996f8c9f5f1e578.svg#Pokemon GB") format("svg"); }
+
+body {
+    cursor: pointer;
+}
+
 .main-title {
     font-family: "Pokemon GB";
     text-align: center;
 }
-.main-title h2 {
-    font-size: 20px;
-    margin: 20px;
+
+.main-title img {
+    width: 500px;
+    height: 120px;
 }
+
+.main-title span {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
 .main-title h4 {
     font-size: 12px;
     margin: 20px;
@@ -15,7 +27,7 @@
 .board {
     position: relative;
     width: 100vw;
-    height: 80vh;
+    height: 75vh;
     /* background-color: grey; */
     background-image: url("./images/gameboy.png");
     background-repeat: no-repeat; 
@@ -90,7 +102,11 @@
     width: 100%;
     height: 100%;
 }
-
+#pokemon-loading-gif {
+    display: none ;
+    width: 100%;
+    height: 100%;
+}
 /* POKEMON FIGHT SCREEN CSS */
 
 .fight-screen {
@@ -141,6 +157,19 @@
 .health-bar progress {
     width: 100px;
     height: 20px;
+}
+
+.enemy-health-display {
+    
+    position: relative;
+    top: -5px;
+    left: -16px;
+    width: 50px;
+    height: 8px;
+    font-size: 6px;
+    text-align: center;
+    padding: 4px;
+    
 }
 
 .player-pokemon {
@@ -300,6 +329,7 @@
 
 .type-of-attack {
     display: flex;
+    flex: 20%;
     align-items: center;
     line-height: 29px;
     padding: 6px;
@@ -330,4 +360,83 @@
 
 .go-back {
     flex:50%;
+}
+
+/* Game Won */
+
+.game-won {
+    font-family: "Pokemon GB";
+    text-align: center;
+    font-size: 30px;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-won h1 {
+    font-size: 26px;
+    margin-top: 21px;
+}
+
+.game-won h3 {
+    font-size: 10px;
+    margin-top: 30px;
+}
+
+.game-won a {
+    font-size: 15px;
+    margin-top: 28px;
+    text-decoration: none;
+}
+
+.game-lost {
+    font-family: "Pokemon GB";
+    text-align: center;
+    font-size: 30px;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-lost h1 {
+    font-size: 26px;
+    margin-top: 21px;
+}
+
+.game-lost h3 {
+    font-size: 10px;
+    margin-top: 30px;
+}
+
+.game-lost a {
+    font-size: 15px;
+    margin-top: 28px;
+    text-decoration: none;
+}
+
+.arrow-down {
+    font-size: 45px;
+    margin-top: 20px;
+}
+
+.attack-commentary {
+    width: 92%;
+    height: 65px;
+    position: relative;
+    top: 23px;
+    left: 19px;
+    background-color: white;
+    display: none;
+    border-radius: 5px;
+
+}
+
+.attack-commentary p {
+    text-align: center; 
+    font-size: 12px; 
+    justify-content: center;
+    background: border-box;
+    align-items: center;
+    padding: 13px;
+    line-height: 18px;
 }

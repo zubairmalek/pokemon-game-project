@@ -16,10 +16,10 @@
   </head>
   <body>
     <div class="main-title">
-      <h2>Welcome</h2>
+      <img src="./styles/images/pokemon-logo.png" alt="" />
       <h4>
-        CLICK on the gameboy screen to start your journey at becoming a Pokemon
-        Master
+        <span>CLICK</span> on the gameboy screen to start your journey at
+        becoming a Pokemon Master
       </h4>
     </div>
     <div class="board">
@@ -38,19 +38,20 @@
           </div>
           <div class="enemy-pokemon">
             <div class="enemy-info">
-              <h1>Rattata</h1>
-              <h3>Lvl10</h3>
+              <h1></h1>
+              <h3></h3>
             </div>
 
             <div class="health-bar" id="enemy-health-bar">
               <progress id="file" max="120" value="120"></progress>
             </div>
+            <div class="enemy-health-display"><p>120/120</p></div>
           </div>
 
           <div class="player-pokemon">
             <div class="player-info">
-              <h1>Charmander</h1>
-              <h3>Lvl15</h3>
+              <h1></h1>
+              <h3></h3>
             </div>
 
             <div class="health-bar" id="player-health-bar">
@@ -59,9 +60,13 @@
             <div class="health-display"><p>120/120</p></div>
           </div>
 
+          <div class="attack-commentary">
+            <p>Squirtle use Tackle and makes damage of 30 hp!</p>
+          </div>
+
           <div class="menu">
             <div class="left-menu">
-              <p>What should Charmander do?</p>
+              <p></p>
             </div>
             <div class="right-menu">
               <div class="btn btn-fight fight-button">
@@ -69,7 +74,7 @@
               </div>
               <div class="btn btn-bag"><p>BAG</p></div>
               <div class="btn btn-pokemon"><p>POKEMON</p></div>
-              <div class="btn btn-run"><p>RUN</p></div>
+              <div class="btn btn-run run"><p class="run">RUN</p></div>
             </div>
           </div>
 
@@ -94,6 +99,11 @@
 
         <!-- DISPLAY LOADING AND PICK POKEMON SCREEN -->
         <img src="./styles/images/nintendo.gif" alt="" id="loading-screen" />
+        <img
+          src="./styles/images/pokemon-loading-gif.gif"
+          alt=""
+          id="pokemon-loading-gif"
+        />
         <div class="pick-pokemon">
           <h2>Choose your Pokemon</h2>
           <h4>Click the Pokemon of your choice</h4>
