@@ -3,7 +3,7 @@
 This Pokemon game is created with HTML, CSS & JavaScript.
 
 # How to play
-* Start the game by first selecting on the blank gameboy screen...
+* **First:** start the game by selecting on the blank gameboy screen...
 * Your goal in this game is to defeat the enemy Pokemon having first selected your own.
 * Once in battle, you have a list of options,
 * **Fight:** Select which attack you'd like to use. Use the mouse to selected
