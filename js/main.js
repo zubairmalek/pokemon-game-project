@@ -1,8 +1,8 @@
 //AUDIO FILES
 const audioFight = new Audio("styles/images/audio/pokemon-fight.mp3");
 const audioOpening = new Audio("styles/images/audio/pokemon-opening.mp3");
-audioFight.volume = 0.5;
-audioOpening.volume = 0.5;
+audioFight.volume = 0.3;
+audioOpening.volume = 0.3;
 
 class Game {
   constructor() {
