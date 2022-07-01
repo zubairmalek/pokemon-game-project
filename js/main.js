@@ -1,6 +1,8 @@
 //AUDIO FILES
 const audioFight = new Audio("styles/images/audio/pokemon-fight.mp3");
 const audioOpening = new Audio("styles/images/audio/pokemon-opening.mp3");
+audioFight.volume = 0.5;
+audioOpening.volume = 0.5;
 
 class Game {
   constructor() {
@@ -390,6 +392,7 @@ class Fight extends Game {
       // CHECK IF GAME IS OVER
       if (this.enemies.health <= 0) {
         // this.gameWon();
+
         setTimeout(() => this.gameWon(), 2000);
       }
     } else if (playerAttackType === "normal") {
@@ -668,10 +671,12 @@ class Fight extends Game {
 
   gameWon() {
     location.href = "game-won.html";
+    audioFight.pause();
   }
 
   gameLost() {
     location.href = "game-lost.html";
+    audioFight.pause();
   }
 }
 
