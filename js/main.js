@@ -671,12 +671,10 @@ class Fight extends Game {
 
   gameWon() {
     location.href = "game-won.html";
-    audioFight.pause();
   }
 
   gameLost() {
     location.href = "game-lost.html";
-    audioFight.pause();
   }
 }
 
