@@ -3,11 +3,14 @@
 
 body {
     cursor: pointer;
+    background-color: black;
+    
 }
 
 .main-title {
     font-family: "Pokemon GB";
     text-align: center;
+    color: white;
 }
 
 .main-title img {
